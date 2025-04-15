@@ -2,5 +2,6 @@ resources:
 - postgres-persistent-volume.yaml
 - postgres-persistent-volume-claim.yaml
 - db-password-secret-sealed.yaml
+- postgres-init-config.yaml
 - postgres-deployment.yaml
 - postgres-service.yaml

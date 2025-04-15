@@ -47,6 +47,9 @@ spec:
             - mountPath: /etc/secrets
               name: postgres-secret-volume
               readOnly: true
+            - mountPath: /docker-entrypoint-initdb.d/init-user-db.sh
+              subPath: init-user-db.sh
+              name: postgres-init-config
       volumes:
         - name: postgresdata
           persistentVolumeClaim:
@@ -54,3 +57,6 @@ spec:
         - name: postgres-secret-volume
           secret:
             secretName: db-password-secret
+        - name: postgres-init-config
+          configMap:
+            name: postgres-init-config
