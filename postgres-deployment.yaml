@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: 'postgres'
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+          livenessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - exec pg_isready -U "postgres" -h 127.0.0.1 -p 5432
+            failureThreshold: 6
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - -e
+              - exec pg_isready -U "postgres" -h 127.0.0.1 -p 5432
+          env:
+            - name: POSTGRES_PASSWORD_FILE
+              value: /etc/secrets/.db_root_password
+            - name: DB_PASSWORD_FILE
+              value: /etc/secrets/.db_password
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresdata
+            - mountPath: /etc/secrets
+              name: postgres-secret-volume
+              readOnly: true
+      volumes:
+        - name: postgresdata
+          persistentVolumeClaim:
+            claimName: postgres-volume-claim
+        - name: postgres-secret-volume
+          secret:
+            secretName: db-password-secret
