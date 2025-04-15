@@ -18,24 +18,6 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
-          livenessProbe:
-            exec:
-              command:
-              - /bin/sh
-              - -c
-              - exec pg_isready -U "postgres" -h 127.0.0.1 -p 5432
-            failureThreshold: 6
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 5
-          readinessProbe:
-            exec:
-              command:
-              - /bin/sh
-              - -c
-              - -e
-              - exec pg_isready -U "postgres" -h 127.0.0.1 -p 5432
           env:
             - name: POSTGRES_PASSWORD_FILE
               value: /etc/secrets/.db_root_password
