@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coole-webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: coole-webapp
+  template:
+    metadata:
+      labels:
+        app: coole-webapp
+    spec:
+      initContainers:
+        - name: init-coole-webapp
+          image: postgres
+          command: ['sh', '-c', 'until pg_isready -U "postgres" -h "postgres" -p 5432; do echo waiting for postgres; sleep 2; done']
+      containers:
+        - name: coole-webapp
+          image: 'davidhuebscher/coole-webapp:latest'
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: WEBSITE_LOAD_CERTIFICATES
+              value: signing-cert,encryption-cert
+            - name: WEBSITE_PRIVATE_CERTS_PATH
+              value: /certs
+            - name: DB_PASSWORD_FILE
+              value: /etc/secrets/.db_password
+            - name: DatabaseConfig__DatabaseConnectionString
+              value: "Host=postgresql;Port=5432;Database=coole_webapp;Username=coole_webapp;Password=__PASSWORD__;"
+          envFrom:
+          - secretRef:
+              name: email-sender-secret
+          - secretRef:
+              name: user-config-secret
+          volumeMounts:
+            - mountPath: /etc/secrets
+              name: postgres-secret-volume
+              readOnly: true
+      volumes:
+        - name: postgres-secret-volume
+          secret:
+            secretName: db-password-secret

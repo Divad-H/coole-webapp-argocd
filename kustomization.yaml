@@ -4,3 +4,7 @@ resources:
 - postgres-init-config.yaml
 - postgres-deployment.yaml
 - postgres-service.yaml
+- email-sender-secret-sealed.yaml
+- user-config-secret-sealed.yaml
+- coole-webapp-service.yaml
+- coole-webapp-deployment.yaml
