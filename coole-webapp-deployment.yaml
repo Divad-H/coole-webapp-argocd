@@ -40,7 +40,13 @@ spec:
             - mountPath: /etc/secrets
               name: postgres-secret-volume
               readOnly: true
+            - mountPath: /certs
+              name: token-certificates-secret-volume
+              readOnly: true
       volumes:
         - name: postgres-secret-volume
           secret:
             secretName: db-password-secret
+        - name: token-certificates-secret-volume
+          secret:
+            secretName: token-certificates-secret

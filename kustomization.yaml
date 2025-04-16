@@ -6,5 +6,6 @@ resources:
 - postgres-service.yaml
 - email-sender-secret-sealed.yaml
 - user-config-secret-sealed.yaml
+- token-certificates-secret-sealed.yaml
 - coole-webapp-service.yaml
 - coole-webapp-deployment.yaml
