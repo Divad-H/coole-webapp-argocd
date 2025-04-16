@@ -9,3 +9,4 @@ resources:
 - token-certificates-secret-sealed.yaml
 - coole-webapp-service.yaml
 - coole-webapp-deployment.yaml
+- coole-webapp-ingress-route.yaml
