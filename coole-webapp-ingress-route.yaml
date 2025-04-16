@@ -7,7 +7,7 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: Host(`cw-test.internal`)
+      match: Host(`coole-webapp.huebschers.us`)
       priority: 10
       services:
         - name: coole-webapp
