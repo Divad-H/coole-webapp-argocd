@@ -30,7 +30,7 @@ spec:
             - name: DB_PASSWORD_FILE
               value: /etc/secrets/.db_password
             - name: DatabaseConfig__DatabaseConnectionString
-              value: "Host=postgresql;Port=5432;Database=coole_webapp;Username=coole_webapp;Password=__PASSWORD__;"
+              value: "Host=postgres;Port=5432;Database=coole_webapp;Username=coole_webapp;Password=__PASSWORD__;"
           envFrom:
           - secretRef:
               name: email-sender-secret
