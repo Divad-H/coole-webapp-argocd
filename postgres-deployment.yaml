@@ -23,6 +23,8 @@ spec:
               value: /etc/secrets/.db_root_password
             - name: DB_PASSWORD_FILE
               value: /etc/secrets/.db_password
+            - name: PGDATA
+              value: /var/lib/postgresql/data/db-files/
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgresdata
