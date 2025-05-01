@@ -24,7 +24,7 @@ spec:
             - containerPort: 8080
           env:
             - name: DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE
-              value: false
+              value: "false"
             - name: WEBSITE_LOAD_CERTIFICATES
               value: signing-cert,encryption-cert
             - name: WEBSITE_PRIVATE_CERTS_PATH
