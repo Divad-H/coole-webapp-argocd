@@ -12,6 +12,8 @@ spec:
       labels:
         app: postgres
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: slave-pi-1
       containers:
         - name: postgres
           image: 'postgres'
