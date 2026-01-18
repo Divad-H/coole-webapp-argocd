@@ -16,7 +16,7 @@ spec:
         kubernetes.io/hostname: slave-pi-1
       containers:
         - name: postgres
-          image: 'postgres'
+          image: 'postgres:17'
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
